@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# https://github.com/andrewharabor/simPLY_chess
+
 import itertools
 import random
 import struct
