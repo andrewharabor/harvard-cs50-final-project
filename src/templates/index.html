@@ -1,0 +1,83 @@
+<!-- Jinja: https://jinja.palletsprojects.com/en/3.1.x/ -->
+
+{% extends "layout.html" %}
+
+{% block head %}
+<title> WebChess - Start New Game </title>
+{% endblock %}
+
+{% block main %}
+<form class="font" method="POST" action="/play">
+    <div>
+        A simple web-based chess GUI for UCI engines.
+        Made by <a href="https://github.com/andrewharabor">Andrew Harabor</a>.
+    </div>
+    <br>
+    <div>
+        <h2>Game Settings</h2>
+        <div>
+            <label for="piece-theme">Piece Theme: </label>
+            {% set themes = ["3d_plastic", "3d_staunton", "3d_wood", "8_bit", "alpha", "bases", "book", "bubblegum",
+            "california", "cardinal", "cases", "cburnett", "celtic", "chess7", "chessnut", "classic", "club",
+            "companion", "condal", "dash", "dubrovny", "fantasy", "fresca", "game_room", "gioco", "glass", "gothic",
+            "governor", "graffiti", "icpieces", "icy_sea", "kiwen-suwi", "kosal", "leipzig", "libra", "light", "lolz",
+            "luca", "maestro", "marble", "maya", "merida", "metal", "modern", "mpchess", "nature", "neo_wood", "neon",
+            "newspaper", "ocean", "pirouetti", "pixel", "riohacha", "sky", "space", "spatial", "staunty", "tatiana",
+            "tigers", "tournament", "vintage", "wood"] %}
+            <select name="piece-theme" id="piece-theme">
+                <option value="neo" selected>Neo</option>
+                {% for theme in themes %}
+                <option value="{{ theme }}">{{ theme | replace("_", " ") | title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <br>
+        <div>
+            <label for="color">Player Color: </label>
+            <select name="color" id="color">
+                <option value="random" selected>Random</option>
+                <option value="white">White</option>
+                <option value="black">Black</option>
+            </select>
+        </div>
+        <br>
+        <div>
+            <label for="engine">Engine: </label>
+            <select name="engine" id="engine">
+                <option value="stockfish" selected>Stockfish 16</option>
+                <option value="komodo">Komodo 14</option>
+                <option value="simPLY_chess">simPLY_chess 3.3</option>
+            </select>
+        </div>
+        <br>
+        <div>
+            <label for="opening-book">Engine Opening Book: </label>
+            <select name="opening-book" id="opening-book">
+                <option value="no-book" selected>None</option>
+                <option value="main1.bin">main1.bin</option>
+                <option value="main2.bin">main2.bin</option>
+                <option value="main3.bin">main3.bin</option>
+                <option value="main4.bin">main4.bin</option>
+                <option value="main5.bin">main5.bin</option>
+                <option value="main6.bin">main6.bin</option>
+                <option value="main7.bin">main7.bin</option>
+            </select>
+        </div>
+        <br>
+        <div>
+            <label for="think-time">Engine Move Time: </label>
+            <select name="think-time" id="think-time">
+                <option value="1" selected>1 second</option>
+                <option value="3">3 seconds</option>
+                <option value="5">5 seconds</option>
+                <option value="10">10 seconds</option>
+                <option value="30">30 seconds</option>
+            </select>
+        </div>
+        <br>
+    </div>
+    <div>
+        <input type="submit" value="Play">
+    </div>
+</form>
+{% endblock %}
