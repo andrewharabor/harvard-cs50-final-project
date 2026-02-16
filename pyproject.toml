@@ -1,0 +1,10 @@
+[project]
+name = "harvard-cs50-final-project"
+version = "0.1.0"
+description = "A simple, web-based GUI to play against UCI chess engines"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "chess>=1.11.2",
+    "flask>=3.1.2",
+]

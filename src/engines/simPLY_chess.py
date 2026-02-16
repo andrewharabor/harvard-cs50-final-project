@@ -1,8 +1,25 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --script
 
-# https://github.com/andrewharabor/simPLY_chess
+#########################################################################
+# simPLY_chess, a simple chess engine written in Python                 #
+# Copyright (C) 2023  Andrew Harabor                                    #
+#                                                                       #
+# This program is free software: you can redistribute it and/or modify  #
+# it under the terms of the GNU General Public License as published by  #
+# the Free Software Foundation, either version 3 of the License, or     #
+# (at your option) any later version.                                   #
+#                                                                       #
+# This program is distributed in the hope that it will be useful,       #
+# but WITHOUT ANY WARRANTY; without even the implied warranty of        #
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         #
+# GNU General Public License for more details.                          #
+#                                                                       #
+# You should have received a copy of the GNU General Public License     #
+# along with this program.  If not, see <https://www.gnu.org/licenses/> #
+#########################################################################
 
 import itertools
+import pathlib
 import random
 import struct
 import sys
@@ -716,7 +733,7 @@ def principal_variation(length: int, position: str, castling: list[bool], oppone
 
 def load_book(book_name: str) -> list[list[int]]:
     """Loads an opening book and returns it as a list of lists of raw integer data."""
-    with open(f"src/opening_books/{book_name}.bin", "rb") as file:
+    with open(f"{pathlib.Path(__file__).resolve().parent}/opening-books/{book_name}.bin", "rb") as file:
         file_content: bytes = file.read()
     integer_data: list[int] = list(struct.unpack(">" + ("QHHI" * (len(file_content) // 16)), file_content))
     return [integer_data[i:i + 4] for i in range(0, len(integer_data), 4)]
@@ -1119,8 +1136,7 @@ def main() -> None:
                     MIDGAME_PIECE_SQUARE_TABLES[piece] = new_midgame_table + blank_row + blank_row
                     ENDGAME_PIECE_SQUARE_TABLES[piece] = new_endgame_table + blank_row + blank_row
                 # Load opening book data
-                # OPENING_BOOKS = [load_book("main" + str(num)) for num in range(1, 8)]  # possible to load each book individually
-                OPENING_BOOKS = []
+                OPENING_BOOKS = [load_book("main" + str(num)) for num in range(1, 8)]  # possible to load each book individually
                 # Global variable initialization
                 max_depth = 0
                 nodes = 0
